@@ -1,0 +1,14 @@
+# Environment — never commit secrets
+.env
+
+# Python virtual environment
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE
+.vscode/
+
+# macOS
+.DS_Store
