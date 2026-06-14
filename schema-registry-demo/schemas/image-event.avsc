@@ -1,0 +1,12 @@
+{
+  "type": "record",
+  "name": "ImageEvent",
+  "namespace": "com.demo",
+  "fields": [
+    {"name": "imageId",     "type": "string"},
+    {"name": "title",       "type": "string"},
+    {"name": "url",         "type": "string"},
+    {"name": "uploadedBy",  "type": "string"},
+    {"name": "uploadedAt",  "type": "long"}
+  ]
+}

@@ -11,6 +11,7 @@ Each demo is self-contained: a real problem, a working stack, and the failure mo
 | Demo | What it shows |
 |------|--------------|
 | [llmday-demo](./llmday-demo/) | PostgreSQL → Debezium → Kafka → Gemini: real-time AI context via CDC |
+| [schema-registry-demo](./schema-registry-demo/) | Avro + Schema Registry: how to stop three teams from calling the same field three different names |
 
 ---
 
