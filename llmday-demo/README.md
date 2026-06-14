@@ -86,7 +86,7 @@ cp .env.example .env
 # Edit .env and add your GEMINI_API_KEY
 ```
 
-### 4. Run the demo
+### 3. Run the demo
 
 ```bash
 ./start.sh
@@ -94,36 +94,57 @@ cp .env.example .env
 
 `start.sh` brings up the Docker stack, waits for Debezium Connect to be ready, registers the connector, then starts the consumer.
 
-### 5. Live demo sequence
+### 4. Live demo sequence
 
-Open a second terminal with psql:
-```bash
-docker exec -it llmday-demo-postgres-1 psql -U demo -d demo
-```
+The consumer is running and waiting for questions. Open a second terminal for the database changes.
 
-In the consumer, ask:
+**Ask about a product:**
 ```
 > is widget pro available?
 ```
 → *"Yes, Widget Pro is currently available."*
 
-In psql, run:
-```sql
-UPDATE products SET status = 'discontinued' WHERE name = 'Widget Pro';
+**Discontinue it:**
+```bash
+./discontinue.sh "Widget Pro"
 ```
 
-Watch the CDC event appear in the consumer:
+Watch the CDC event appear in the consumer terminal:
 ```
 🔄 [CDC EVENT] Widget Pro: available → discontinued
 ```
 
-Ask the same question again:
+**Ask again:**
 ```
 > is widget pro available?
 ```
 → *"Widget Pro has been discontinued and is no longer available."*
 
-**No batch job. No cache invalidation. No polling. Just the WAL.**
+**Restock it:**
+```bash
+./restock.sh "Widget Pro"
+```
+
+```
+🔄 [CDC EVENT] Widget Pro: discontinued → available
+```
+
+**Ask one more time:**
+```
+> is widget pro available?
+```
+→ *"Yes, Widget Pro is back in stock and available for purchase."*
+
+The model didn't change. The context did. That's the whole point.
+
+**Or use psql directly if you prefer:**
+```bash
+docker exec -it llmday-demo-postgres-1 psql -U demo -d demo
+```
+```sql
+UPDATE products SET status = 'discontinued' WHERE name = 'Widget Pro';
+UPDATE products SET status = 'available'    WHERE name = 'Widget Pro';
+```
 
 ---
 
@@ -148,6 +169,8 @@ Real issues from the field — the part most tutorials skip:
 ├── register-connector.sh    # Registers Debezium PostgreSQL connector (waits for readiness)
 ├── consumer.py              # Kafka consumer + Gemini integration
 ├── start.sh                 # One-command startup: docker stack + consumer
+├── discontinue.sh           # ./discontinue.sh "Product Name" — sets status to discontinued
+├── restock.sh               # ./restock.sh "Product Name" — sets status back to available
 ├── requirements.txt         # Python dependencies
 └── .env.example             # Environment variable template
 ```
