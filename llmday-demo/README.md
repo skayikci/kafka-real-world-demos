@@ -180,6 +180,6 @@ Real issues from the field — the part most tutorials skip:
 ## Contact
 
 **Serhat Kayikci** — Senior Backend Engineer, Kafka & CDC Specialist  
-[serhat.tech](https://serhat.tech) | [github.com/skayikci](https://github.com/skayikci) | [LinkedIn](https://linkedin.com/in/skayikci)
+[serhat.tech](https://serhat.tech) | [github.com/skayikci](https://github.com/skayikci) | [LinkedIn](https://linkedin.com/in/serhatkayikci)
 
 *Building real-time data pipelines for AI? Let's talk.*

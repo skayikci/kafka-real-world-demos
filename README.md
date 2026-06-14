@@ -26,4 +26,4 @@ Every demo includes:
 
 ---
 
-**Serhat Kayikci** — [serhat.tech](https://serhat.tech) | [github.com/skayikci](https://github.com/skayikci) | [LinkedIn](https://linkedin.com/in/skayikci)
+**Serhat Kayikci** — [serhat.tech](https://serhat.tech) | [github.com/skayikci](https://github.com/skayikci) | [LinkedIn](https://linkedin.com/in/serhatkayikci)
