@@ -11,8 +11,6 @@ import threading
 import time
 import os
 from confluent_kafka import Consumer, KafkaError
-from google import genai
-from google.genai import types
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -30,7 +28,14 @@ _api_key = os.getenv("GEMINI_API_KEY")
 if not _api_key:
     raise SystemExit("Error: GEMINI_API_KEY not set. Copy .env.example to .env and add your key.")
 
-client = genai.Client(api_key=_api_key)
+_client = None
+
+def _get_client():
+    global _client
+    if _client is None:
+        from google import genai
+        _client = genai.Client(api_key=_api_key)
+    return _client
 
 
 def get_snapshot() -> dict:
@@ -145,7 +150,8 @@ Keep answers short — two sentences maximum.
 Current product catalogue (real-time via CDC):
 {catalogue}"""
 
-    response = client.models.generate_content(
+    from google.genai import types
+    response = _get_client().models.generate_content(
         model=GEMINI_MODEL,
         contents=question,
         config=types.GenerateContentConfig(
